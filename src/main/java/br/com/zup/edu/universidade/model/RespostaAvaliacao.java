@@ -1,13 +1,22 @@
 package br.com.zup.edu.universidade.model;
 
-import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
 @Entity
 public class RespostaAvaliacao {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = false)
@@ -26,8 +35,7 @@ public class RespostaAvaliacao {
     }
 
     @Deprecated
-    public RespostaAvaliacao() {
-    }
+    public RespostaAvaliacao() {}
 
     public Set<RespostaQuestao> getRespostas() {
         return respostas;
@@ -40,4 +48,5 @@ public class RespostaAvaliacao {
     public boolean pertence(Aluno aluno) {
         return this.aluno.equals(aluno);
     }
+
 }

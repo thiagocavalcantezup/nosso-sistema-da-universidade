@@ -1,16 +1,25 @@
 package br.com.zup.edu.universidade.model;
 
-import br.com.zup.edu.universidade.exception.MatriculaAlunoException;
-
-import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+
+import br.com.zup.edu.universidade.exception.MatriculaAlunoException;
+
 @Entity
 public class Turma {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = false)
@@ -38,15 +47,14 @@ public class Turma {
     }
 
     @Deprecated
-    public Turma() {
-    }
+    public Turma() {}
 
     public Long getId() {
         return id;
     }
 
-    public void adicionar(Aluno aluno){
-        if(isMatriculado(aluno)){
+    public void adicionar(Aluno aluno) {
+        if (isMatriculado(aluno)) {
             throw new MatriculaAlunoException("Aluno já matriculado");
         }
 
@@ -58,18 +66,19 @@ public class Turma {
         return alunos.contains(aluno);
     }
 
-    public void trocar(Professor novoProfessor){
+    public void trocar(Professor novoProfessor) {
         this.professor.remover(this);
-        this.professor=novoProfessor;
+        this.professor = novoProfessor;
         novoProfessor.adicionar(this);
     }
 
     public void remover(Aluno aluno) {
-        if(!isMatriculado(aluno)){
-            throw  new MatriculaAlunoException("Não é possivel desfazer uma matricula inexistente");
+        if (!isMatriculado(aluno)) {
+            throw new MatriculaAlunoException("Não é possivel desfazer uma matricula inexistente");
         }
 
         this.alunos.remove(aluno);
         aluno.remover(this);
     }
+
 }

@@ -1,12 +1,18 @@
 package br.com.zup.edu.universidade.model;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Questao {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
@@ -25,8 +31,7 @@ public class Questao {
     }
 
     @Deprecated
-    public Questao() {
-    }
+    public Questao() {}
 
     public Long getId() {
         return id;
@@ -34,11 +39,8 @@ public class Questao {
 
     @Override
     public String toString() {
-        return "Questao{" +
-                "id=" + id +
-                ", descricao='" + descricao + '\'' +
-                ", resposta='" + resposta + '\'' +
-                ", valor=" + valor +
-                '}';
+        return "Questao{" + "id=" + id + ", descricao='" + descricao + '\'' + ", resposta='"
+                + resposta + '\'' + ", valor=" + valor + '}';
     }
+
 }

@@ -1,11 +1,17 @@
 package br.com.zup.edu.universidade.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class RespostaQuestao {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(optional = false)
@@ -24,8 +30,7 @@ public class RespostaQuestao {
     }
 
     @Deprecated
-    public RespostaQuestao() {
-    }
+    public RespostaQuestao() {}
 
     public Long getId() {
         return id;
@@ -45,8 +50,7 @@ public class RespostaQuestao {
 
     @Override
     public String toString() {
-        return "RespostaQuestao{" +
-                "id=" + id +
-                '}';
+        return "RespostaQuestao{" + "id=" + id + '}';
     }
+
 }
